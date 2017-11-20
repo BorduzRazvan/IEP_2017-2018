@@ -22,7 +22,7 @@ Pwm::Pwm(int frequency, int dutycycle, int channel, int range)
 }
 
 
-/** Method used to set the PWM output, important value must be lower than the range */
+/** Method used to set the PWM output, important value must be lower than the range :)*/
 void Pwm::setDutyCycle(int targetDutyCycle)
 {
     if(targetDutyCycle > this->range)
@@ -32,7 +32,7 @@ void Pwm::setDutyCycle(int targetDutyCycle)
     }
     else
     {
-        this->dutycycle = targetDutyCycle;
+        this->dutycycle = targetDutyCycle*this->range/100;
     }
 
     bcm2835_pwm_set_data(this->channel, this->dutycycle);
@@ -47,9 +47,9 @@ void Pwm::setFrequency(int targetFrequency)
 
 
 /** Method used to get the actual PWM dutycycle */
-int Pwm::getDutyCycle(void)
+int Pwm::getDutyCycle()
 {
-    return this->dutycycle;
+    return this->dutycycle*100/this->frequency;
 }
 
 
